@@ -30,3 +30,43 @@ spin_button = tk.Button(root, text="轉組合", command=spin_combo, width=20, he
 spin_button.pack(side="bottom", pady=20)
 
 root.mainloop()
+
+
+
+
+import tkinter as tk
+import random
+
+# 食物清單
+foods = [
+    "壽司", "速食店", "夜市", "火鍋", "義大利麵", "學餐", "漢堡", "便當", "小吃", "滷味",
+    "咖哩飯", "炒麵", "炒飯", "拉麵", "便利商店", "鍋貼", "披薩", "牛排", "沙拉", "粥",
+    "鬆餅", "越南河粉", "章魚燒", "蛋包飯", "滷肉飯", "鍋燒意麵", "關東煮", "泡麵", "飯糰"
+]
+
+def spin_wheel():
+    spin_button.config(state="disabled")  # 轉盤期間禁用按鈕
+    for i in range(20):  # 模擬轉動 20 次
+        result = random.choice(foods)
+        result_label.config(text=f"轉啊轉… {result}")
+        root.update()
+        root.after(100 + i * 10)  # 每次轉慢一點
+    final_result = random.choice(foods)
+    result_label.config(text=f"今晚吃：{final_result}！")
+    spin_button.config(state="normal")  # 啟用按鈕
+
+# 建立視窗
+root = tk.Tk()
+root.title("今晚吃什麼？")
+root.geometry("300x200")
+
+# 顯示結果
+result_label = tk.Label(root, text="點下按鈕開始", font=("Arial", 16))
+result_label.pack(pady=30)
+
+# 轉盤按鈕
+spin_button = tk.Button(root, text="開始轉盤", font=("Arial", 14), command=spin_wheel)
+spin_button.pack()
+
+# 啟動主迴圈
+root.mainloop()
